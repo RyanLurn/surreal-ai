@@ -24,14 +24,13 @@ import {
 import { SidebarContext, type SidebarContextProps } from "@/contexts/sidebar";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useSidebar } from "@/hooks/use-sidebar";
+import {
+  SIDEBAR_KEYBOARD_SHORTCUT,
+  SIDEBAR_WIDTH,
+  SIDEBAR_WIDTH_ICON,
+  SIDEBAR_WIDTH_MOBILE,
+} from "@/lib/constants";
 import { cn } from "@/lib/utils";
-
-const SIDEBAR_COOKIE_NAME = "sidebar_state";
-const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
-const SIDEBAR_WIDTH = "16rem";
-const SIDEBAR_WIDTH_MOBILE = "18rem";
-const SIDEBAR_WIDTH_ICON = "3rem";
-const SIDEBAR_KEYBOARD_SHORTCUT = "b";
 
 function SidebarProvider({
   defaultOpen = true,
@@ -61,10 +60,6 @@ function SidebarProvider({
       } else {
         _setOpen(openState);
       }
-
-      // This sets the cookie to keep the sidebar state.
-      // biome-ignore lint/suspicious/noDocumentCookie: shadcn code
-      document.cookie = `${SIDEBAR_COOKIE_NAME}=${openState}; path=/; max-age=${SIDEBAR_COOKIE_MAX_AGE}`;
     },
     [setOpenProp, open]
   );
