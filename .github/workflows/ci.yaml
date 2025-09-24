@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - ".gitignore"
+      - ".gitattributes"
+      - ".env.example"
+  pull_request:
+    branches: [main]
+    paths-ignore:
+      - ".gitignore"
+      - ".gitattributes"
+      - ".env.example"
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    name: Check code quality
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install dependencies with Bun
+        run: bun install
+
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+
+      - name: Run Biome
+        run: biome ci .
