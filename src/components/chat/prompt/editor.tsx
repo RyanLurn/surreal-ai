@@ -28,7 +28,7 @@ function PromptEditor({
 
   return (
     <Textarea
-      className="max-h-48 min-h-16 w-full resize-none rounded-none border-none bg-transparent p-3 shadow-none ring-0 outline-none focus-visible:ring-0 md:text-base dark:bg-transparent"
+      className="max-h-60 min-h-18 w-full resize-none rounded-none border-none bg-transparent p-3 shadow-none ring-0 outline-none focus-visible:ring-0 md:text-base dark:bg-transparent"
       disabled={isDisabled}
       name={name}
       onChange={(e) => changePrompt(e.target.value)}
