@@ -13,19 +13,6 @@ function useSubmitPrompt() {
     setPrompt(prompt);
   }, []);
 
-  const { mutateAsync: sendPrompt, isPending: isSendingPrompt } = useMutation({
-    mutationFn: createMessage,
-    onError: (err) => {
-      console.error(err);
-      toast.error("Failed to send prompt");
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["messages"],
-      });
-    },
-  });
-
   const { mutate: createResponse, isPending: isCreatingResponse } = useMutation(
     {
       mutationFn: streamResponse,
@@ -49,6 +36,20 @@ function useSubmitPrompt() {
     setStream("");
   }, []);
 
+  const { mutate: sendPrompt, isPending: isSendingPrompt } = useMutation({
+    mutationFn: createMessage,
+    onError: (err) => {
+      console.error(err);
+      toast.error("Failed to send prompt");
+    },
+    onSuccess: () => {
+      createResponse({ clearStream, updateStream });
+      queryClient.invalidateQueries({
+        queryKey: ["messages"],
+      });
+    },
+  });
+
   const submitPrompt = useCallback(
     async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
@@ -57,13 +58,12 @@ function useSubmitPrompt() {
         return;
       }
       setPrompt("");
-      await sendPrompt({
+      sendPrompt({
         content: promptText,
         role: "user",
       });
-      createResponse({ clearStream, updateStream });
     },
-    [prompt, sendPrompt, createResponse, clearStream, updateStream]
+    [prompt, sendPrompt]
   );
 
   return {
