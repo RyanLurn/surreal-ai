@@ -20,7 +20,7 @@ function Prompt({
   return (
     <form
       className={cn(
-        "flex overflow-hidden rounded-xl border bg-background shadow-sm",
+        "flex flex-col overflow-hidden rounded-xl border border-input bg-background shadow-sm dark:bg-input/30",
         CHAT_CONTAINER_WIDTH,
         className
       )}

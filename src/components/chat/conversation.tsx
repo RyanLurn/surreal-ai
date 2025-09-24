@@ -5,7 +5,13 @@ import { useMessages } from "@/hooks/use-messages";
 import { CHAT_CONTAINER_WIDTH } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-function Conversation({ className }: { className?: string }) {
+function Conversation({
+  className,
+  stream,
+}: {
+  className?: string;
+  stream: string;
+}) {
   const { data: messages, isPending, isError } = useMessages();
 
   if (isPending) {
@@ -42,6 +48,8 @@ function Conversation({ className }: { className?: string }) {
             role={message.role}
           />
         ))}
+        {/** biome-ignore lint/a11y/useValidAriaRole: false positive */}
+        {stream && <MessageBubble content={stream} role="assistant" />}
       </StickToBottom.Content>
     </StickToBottom>
   );

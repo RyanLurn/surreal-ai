@@ -9,6 +9,10 @@ function useSubmitPrompt() {
   const [prompt, setPrompt] = useState("");
   const [stream, setStream] = useState("");
 
+  const changePrompt = useCallback((prompt: string) => {
+    setPrompt(prompt);
+  }, []);
+
   const { mutate: sendPrompt, isPending: isSendingPrompt } = useMutation({
     mutationFn: createMessage,
     onError: (err) => {
@@ -63,7 +67,9 @@ function useSubmitPrompt() {
   );
 
   return {
+    changePrompt,
     isDisabled: isSendingPrompt || isCreatingResponse,
+    prompt,
     stream,
     submitPrompt,
   };
