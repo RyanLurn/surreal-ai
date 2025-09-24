@@ -5,8 +5,10 @@ import { groqProvider } from "@/lib/ai-providers";
 
 async function streamResponse({
   updateStream,
+  clearStream,
 }: {
   updateStream: (textPart: string) => void;
+  clearStream: () => void;
 }) {
   const messages = await listMessages();
 
@@ -23,6 +25,8 @@ async function streamResponse({
     content: await text,
     role: "assistant",
   });
+
+  clearStream();
 }
 
 export { streamResponse };
