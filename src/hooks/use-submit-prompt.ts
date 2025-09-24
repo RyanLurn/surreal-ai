@@ -13,7 +13,7 @@ function useSubmitPrompt() {
     setPrompt(prompt);
   }, []);
 
-  const { mutate: sendPrompt, isPending: isSendingPrompt } = useMutation({
+  const { mutateAsync: sendPrompt, isPending: isSendingPrompt } = useMutation({
     mutationFn: createMessage,
     onError: (err) => {
       console.error(err);
@@ -50,14 +50,14 @@ function useSubmitPrompt() {
   }, []);
 
   const submitPrompt = useCallback(
-    (e: FormEvent<HTMLFormElement>) => {
+    async (e: FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       const promptText = prompt.trim();
       if (promptText === "") {
         return;
       }
       setPrompt("");
-      sendPrompt({
+      await sendPrompt({
         content: promptText,
         role: "user",
       });

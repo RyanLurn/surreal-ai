@@ -1,6 +1,7 @@
 import type { Options } from "react-markdown";
 import {
   TypographyBlockquote,
+  TypographyInlineCode,
   TypographyLink,
   TypographyParagraph,
 } from "@/components/typography/content";
@@ -29,6 +30,11 @@ const markdownComponents: Options["components"] = {
     <TypographyBlockquote className={className} {...props}>
       {children}
     </TypographyBlockquote>
+  ),
+  code: ({ node, className, children, ...props }) => (
+    <TypographyInlineCode className={className} {...props}>
+      {children}
+    </TypographyInlineCode>
   ),
   em: ({ node, children, className, ...props }) => (
     <TypographyItalic className={className} {...props}>

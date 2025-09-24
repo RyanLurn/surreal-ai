@@ -12,7 +12,7 @@ function Prompt({
   isDisabled,
 }: {
   className?: string;
-  submitPrompt: (e: FormEvent<HTMLFormElement>) => void;
+  submitPrompt: (e: FormEvent<HTMLFormElement>) => Promise<void>;
   prompt: string;
   changePrompt: (prompt: string) => void;
   isDisabled: boolean;

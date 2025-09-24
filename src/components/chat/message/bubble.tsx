@@ -15,9 +15,7 @@ function MessageBubble({
     <div
       className={cn(
         "group flex w-full items-end justify-end gap-2 py-4",
-        role === "user"
-          ? "is-user"
-          : "is-assistant flex-row-reverse justify-end",
+        role === "user" ? "is-user" : "is-assistant flex-row-reverse",
         "[&>div]:max-w-[80%]",
         className
       )}
