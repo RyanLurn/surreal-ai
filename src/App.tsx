@@ -16,7 +16,7 @@ function App() {
   }, []);
 
   return (
-    <div className="flex size-full flex-1 flex-col gap-y-3">
+    <div className="flex size-full flex-col">
       <Conversation className="flex-1" stream={stream} />
       <Prompt
         changePrompt={changePrompt}
