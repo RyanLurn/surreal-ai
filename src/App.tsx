@@ -1,7 +1,13 @@
 import { useEffect } from "react";
+import { Conversation } from "@/components/chat/conversation";
+import { Prompt } from "@/components/chat/prompt";
+import { useSubmitPrompt } from "@/hooks/use-submit-prompt";
 import { connectDB, db } from "@/lib/db";
 
 function App() {
+  const { prompt, changePrompt, stream, submitPrompt, isDisabled } =
+    useSubmitPrompt();
+
   useEffect(() => {
     connectDB();
     return () => {
@@ -10,13 +16,15 @@ function App() {
   }, []);
 
   return (
-    <div className="flex size-full flex-col items-center justify-center">
-      <h1 className="scroll-m-20 text-center text-4xl font-extrabold tracking-tight text-balance">
-        React Fastlane
-      </h1>
-      <p className="leading-7 [&:not(:first-child)]:mt-6">
-        A React Vite SPA template for quick prototyping.
-      </p>
+    <div className="flex size-full flex-1 flex-col gap-y-3">
+      <Conversation className="flex-1" stream={stream} />
+      <Prompt
+        changePrompt={changePrompt}
+        className="mb-4"
+        isDisabled={isDisabled}
+        prompt={prompt}
+        submitPrompt={submitPrompt}
+      />
     </div>
   );
 }

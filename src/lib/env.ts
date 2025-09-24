@@ -3,6 +3,7 @@ import { z } from "zod";
 
 const env = createEnv({
   client: {
+    VITE_GROQ_API_KEY: z.string().min(1),
     VITE_SURREALDB_CONNECTION_STRING: z.string().min(1),
     VITE_SURREALDB_DATABASE: z.string().min(1),
     VITE_SURREALDB_NAMESPACE: z.string().min(1),
